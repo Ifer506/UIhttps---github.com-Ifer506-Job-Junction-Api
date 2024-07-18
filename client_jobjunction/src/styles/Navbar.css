@@ -1,0 +1,45 @@
+.tab {
+    position: relative;
+    margin: auto;
+    transition: color 0.3s;
+    
+}
+  
+.tab span {
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+    
+}
+  
+.tab:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -19px;
+    height: 3px;
+    width: 0;
+    background-color: teal;
+    transition: width 0.2s, background-color 0.2s;
+}
+  
+.tab:hover:after {
+    width: 100%;
+}
+  
+.tab:hover {
+    color: teal;
+}
+  
+.tab-active span {
+    color: #1f2937; /* Active tab text color */
+}
+  
+.tab-active:after {
+    width: 100%; /* Keep underline width 100% for active tab */
+    background-color: teal; /* Underline color */
+}
+
+.logo{
+    padding-left: 8px;
+}

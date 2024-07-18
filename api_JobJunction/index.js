@@ -16,22 +16,32 @@ app.use(express.json());
 
 //connect to database
 connectDB();
-
-app.get("/job/user", (req, res) => {
-  res.status(200).json("Hello from server");
-});
-
 // Custom middleware
 app.get("/", (req, res) => {
     res.send("API is working");
-  });
+});
+
+// Routes
+const authMiddleware = require("./middleware/authMiddleware");
+const authRoutes = require("./routes/authRoutes");
+const jobsRoutes = require("./routes/jobsRoutes");
+const usersRoutes = require("./routes/usersRoutes");
+const searchRoutes = require("./routes/searchRoutes");
+const fileController = require("./controllers/fileController");
+const searchController = require("./controllers/searchController");
+
+app.use("/auth", authRoutes);
+app.use("/jobs", jobsRoutes);
+app.use("/controllers", fileController);
+app.use("/users", authMiddleware, usersRoutes);
+app.use("/search", searchRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: "Internal server error in index" });
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal server error in index" });
 });
-  
+
 
 //running the server
 app.listen(PORT, () => {
